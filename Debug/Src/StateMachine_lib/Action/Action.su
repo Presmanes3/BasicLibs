@@ -1,0 +1,2 @@
+Action.cpp:3:6:void Action::set_callback(bool (*)())	16	static
+Action.cpp:13:6:bool Action::can_be_executed()	16	static
