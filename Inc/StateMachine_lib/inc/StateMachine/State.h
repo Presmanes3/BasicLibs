@@ -4,97 +4,66 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "StateMachine_lib/inc/Action/Action.h"
+#include "StateMachine_lib/inc/Action/ActionVector.h"
+#include "StateMachine_lib/inc/ExecutionTimeCalculator/ExecutionTimeCalculator.h"
 
-/**
- * @brief
- *
- * @tparam N
- */
-template <int N>
-class State
-{
-	// Public methods
-public:
-	/**
-   * @brief Construct a new State object
-   *
-   */
-	State()
-	{
-		for (uint8_t x = 0; x < N; x++)
-		{
-			this->action_pool[x] = nullptr;
-		}
+#ifdef STM32F103xB
+#include "stm32f1xx_hal.h"
 
-		this->current_action = 0;
-	}
+#endif
 
-	/**
-   * @brief Virtual method for updating the state
-   *
-   */
-	void update()
-	{
-		uint8_t action_id = this->current_action;
-		if (this->action_pool[action_id] != nullptr)
-		{
-			if (this->action_pool[action_id]->can_be_executed())
-			{
-				this->action_pool[action_id]->execute();
-			}
-		}
+#ifdef STM32F437xx
 
-		this->update_new_action();
-	}
+#endif
 
-	/**
-   * @brief Virtual method for entering to the state
-   *
-   */
-	void enter() {}
+enum ActionType {
+	ACTION_UPDATE = 0,
 
-	/**
-   * @brief Virtual method for initialization of the state
-   *
-   */
-	void init() {}
+	ACTION_ENTER = 1,
 
-	/**
-   * @brief Handle current_action variable in orde to not overflow it
-   *
-   */
-	void update_new_action()
-	{
-		if (this->current_action + 1 >= N)
-		{
-			this->current_action = 0;
-		}
-		else
-		{
-			this->current_action++;
-		}
-	}
+	ACTION_EXIT = 2
+};
 
-	/**
-   * @brief Add a new Action to the array
-   *
-   * @param t
-   */
-	void add_action(Action *t)
-	{
-		for (uint32_t x = 0; x < N; x++)
-		{
-			if (this->action_pool[x] == nullptr)
-			{
-				this->action_pool[x] = t;
-				break;
-			}
-		}
-	}
+class State {
+		// Public methods
+	public:
+		/**
+		 * @brief Construct a new State object
+		 *
+		 */
+		State();
 
-public:
-	Action *action_pool[N];
-	uint32_t current_action;
+		void update();
+
+		void enter();
+
+		void exit();
+
+		void init();
+
+		ActionVector* get_action_vector(ActionType type);
+
+		void add_action(ActionType type, Action *action_);
+
+		void set_execution_time_calculator_timer();
+
+	private:
+
+		bool action_exist(Action *action);
+
+		void next_update_action();
+
+	public:
+
+		ActionVector update_actions;
+		ActionVector enter_actions;
+		ActionVector exit_actions;
+
+		ExecutionTimeCalculator* update_actions_time;
+		ExecutionTimeCalculator* enter_actions_time;
+		ExecutionTimeCalculator* exit_actions_time;
+
+		uint8_t current_update_action = 0;
 };
 
 #endif /*_STATE_H_*/

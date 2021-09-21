@@ -1,46 +1,75 @@
 #ifndef _ACTION_H_
 #define _ACTION_H_
 
+#include "StateMachine_lib/inc/Properties/ActivationProperty.h"
+#include "StateMachine_lib/inc/ExecutionTimeCalculator/ExecutionTimeCalculator.h"
 #include "stdint.h"
+#include "math.h"
+
+#ifdef STM32F103xB
+#include "stm32f1xx_hal.h"
+
+#endif
+
+#ifdef STM32F437xx
+
+#endif
 
 class SoftwareTimer;
 
-class Action
-{
-public:
-    Action()
-    {
-        this->execute = nullptr;
-    }
+class Action: public ActivationProperty {
+	public:
+		Action(bool func(), SoftwareTimer *timer) {
+			this->set_callback(func);
+			this->set_timer(timer);
+		}
 
-    /**
-   * @brief Set the callback function
-   *
-   * @param callback_function
-   */
-    void set_callback(bool callback_function());
+		Action(bool func(), SoftwareTimer *timer, ExecutionTimeCalculator* time_calculator) {
 
-    /**
-   * @brief execute the action
-   *
-   */
-    bool (*execute)();
+			this->set_callback(func);
+			this->set_timer(timer);
+			this->set_execution_time_calculator(time_calculator);
+		}
 
-    /**
-     * @brief Return is action can be executed
-     * 
-     * @return true 
-     * @return false 
-     */
-    bool can_be_executed();
+		bool (*callback)();
 
-private:
-    bool _can_be_executed = false;
-    bool _is_periodic = false;
+		void set_timer(SoftwareTimer *timer);
+		void set_execution_time_calculator(ExecutionTimeCalculator *time_calculator);
+		void set_repetition(uint32_t repetitions);
+		void set_callback(bool func());
 
-    SoftwareTimer *timer;
+		void reset();
 
-    uint32_t total_repetitions = 0;
+		bool execute();
+
+		bool is_executable();
+
+		bool is_bloqued();
+
+	private:
+
+		void add_time_executed();
+
+		bool check_repetitions();
+
+		bool check_execution_conditions();
+
+		void start_compute_execution_time();
+
+		void stop_compute_execution_time();
+
+	private:
+		SoftwareTimer *timer = nullptr;
+		ExecutionTimeCalculator *execution_time_calculator;
+
+		uint32_t times_executed = 0;
+		uint32_t repetitions = 0;
+
+		bool _is_periodic = false;
+		bool _is_executable = false;
+		bool _has_repetitions = false;
+		bool _has_exceed_repetitions = false;
+		bool _has_execution_time_calculator = false;
 };
 
 #endif

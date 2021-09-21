@@ -12,7 +12,6 @@ RM := rm -rf
 -include Src/StateMachine_lib/StateMachine/subdir.mk
 -include Src/StateMachine_lib/SoftwareTimer/subdir.mk
 -include Src/StateMachine_lib/ExecutionTimeCalculator/subdir.mk
--include Src/StateMachine_lib/ActivatorProperties/subdir.mk
 -include Src/StateMachine_lib/Action/subdir.mk
 -include Src/subdir.mk
 -include Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/subdir.mk
