@@ -54,13 +54,9 @@ class Action: public ActivationProperty {
 
 		bool check_execution_conditions();
 
-		void start_compute_execution_time();
-
-		void stop_compute_execution_time();
-
 	private:
 		SoftwareTimer *timer = nullptr;
-		ExecutionTimeCalculator *execution_time_calculator;
+		ExecutionTimeCalculator execution_time_calculator = ExecutionTimeCalculator();
 
 		uint32_t times_executed = 0;
 		uint32_t repetitions = 0;
@@ -69,7 +65,6 @@ class Action: public ActivationProperty {
 		bool _is_executable = false;
 		bool _has_repetitions = false;
 		bool _has_exceed_repetitions = false;
-		bool _has_execution_time_calculator = false;
 };
 
 #endif

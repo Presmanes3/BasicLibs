@@ -13,14 +13,17 @@
 
 #endif
 
+extern TIM_HandleTypeDef htim2;
 
 class ExecutionTimeCalculator {
 	public:
-		ExecutionTimeCalculator(TIM_HandleTypeDef *hw_timer) {
+		ExecutionTimeCalculator() {
 
-			this->hw_timer = hw_timer;
+			this->hw_timer = &htim2;
 
 		}
+
+		void set_hardware_timer(TIM_HandleTypeDef* hw_timer);
 
 		void start();
 

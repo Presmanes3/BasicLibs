@@ -10,6 +10,12 @@ void ExecutionTimeCalculator::stop() {
 	this->get_time_past();
 }
 
+void ExecutionTimeCalculator::set_hardware_timer(TIM_HandleTypeDef* hw_timer){
+	if(hw_timer != nullptr){
+		this->hw_timer = hw_timer;
+	}
+}
+
 uint32_t ExecutionTimeCalculator::get_time_past() {
 	uint32_t difference = 0;
 

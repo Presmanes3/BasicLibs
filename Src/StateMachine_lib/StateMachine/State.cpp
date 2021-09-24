@@ -5,9 +5,10 @@
 State::State(){
 
 }
+
 void State::update() {
 	update_actions_time.start();
-	uint8_t action_id = this->current_update_action;
+	uint32_t action_id = this->current_update_action;
 
 	Action *action = this->update_actions.get_action(action_id);
 
@@ -24,8 +25,9 @@ void State::update() {
 
 void State::enter() {
 	enter_actions_time.start();
+
 	Action *action = nullptr;
-	for (uint8_t x = 0; x < this->enter_actions.get_size(); x++) {
+	for (uint32_t x = 0; x < this->enter_actions.get_size(); x++) {
 		action = this->enter_actions.get_action(x);
 
 		if (this->action_exist(action)) {
@@ -40,7 +42,7 @@ void State::exit() {
 	exit_actions_time.start();
 
 	Action *action = nullptr;
-	for (uint8_t x = 0; x < this->exit_actions.get_size(); x++) {
+	for (uint32_t x = 0; x < this->exit_actions.get_size(); x++) {
 		action = this->exit_actions.get_action(x);
 
 		if (this->action_exist(action)) {

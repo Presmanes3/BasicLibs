@@ -38,13 +38,13 @@ bool Action::execute() {
 	bool ret = false;
 
 	if (this->check_execution_conditions()) {
-		this->start_compute_execution_time();
+		this->execution_time_calculator.start();
 
 		ret = this->callback();
 
 		this->add_time_executed();
 
-		this->stop_compute_execution_time();
+		this->execution_time_calculator.stop();
 	}
 
 	return ret;
@@ -92,26 +92,6 @@ bool Action::check_execution_conditions() {
 	}
 
 	return can_be_executed;
-}
-
-
-void Action::set_execution_time_calculator(ExecutionTimeCalculator* time_calculator){
-	if(time_calculator != nullptr){
-		this->execution_time_calculator = time_calculator;
-		this->_has_execution_time_calculator = true;
-	}
-}
-
-void Action::start_compute_execution_time(){
-	if(this->_has_execution_time_calculator){
-		this->execution_time_calculator->start();
-	}
-}
-
-void Action::stop_compute_execution_time(){
-	if(this->_has_execution_time_calculator){
-		this->execution_time_calculator->stop();
-	}
 }
 
 

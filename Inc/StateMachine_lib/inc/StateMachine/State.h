@@ -55,15 +55,15 @@ class State {
 
 	public:
 
-		ActionVector update_actions;
-		ActionVector enter_actions;
-		ActionVector exit_actions;
+		ActionVector update_actions = ActionVector();
+		ActionVector enter_actions	= ActionVector();
+		ActionVector exit_actions	= ActionVector();
 
-		ExecutionTimeCalculator* update_actions_time;
-		ExecutionTimeCalculator* enter_actions_time;
-		ExecutionTimeCalculator* exit_actions_time;
+		ExecutionTimeCalculator update_actions_time = ExecutionTimeCalculator();
+		ExecutionTimeCalculator enter_actions_time  = ExecutionTimeCalculator();
+		ExecutionTimeCalculator exit_actions_time   = ExecutionTimeCalculator();
 
-		uint8_t current_update_action = 0;
+		uint32_t current_update_action = 0;
 };
 
 #endif /*_STATE_H_*/
