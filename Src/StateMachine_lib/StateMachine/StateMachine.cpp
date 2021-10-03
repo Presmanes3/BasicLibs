@@ -1,2 +1,2 @@
-#include "StateMachine_lib/inc/StateMachine/StateMachine.h"
+#include <StateMachine_lib/StateMachine.h>
 

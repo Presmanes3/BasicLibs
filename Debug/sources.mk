@@ -27,9 +27,9 @@ CPP_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates \
-Src/StateMachine_lib/Action \
-Src/StateMachine_lib/ExecutionTimeCalculator \
-Src/StateMachine_lib/SoftwareTimer \
-Src/StateMachine_lib/StateMachine \
+Src/Action_lib \
 Src \
+Src/SoftwareTimer_lib/ExecutionTimeCalculator \
+Src/SoftwareTimer_lib \
+Src/StateMachine_lib/StateMachine \
 

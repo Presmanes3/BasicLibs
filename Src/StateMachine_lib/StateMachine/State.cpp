@@ -1,5 +1,4 @@
-#include "StateMachine_lib/inc/StateMachine/State.h"
-
+#include <StateMachine_lib/State.h>
 #include "stdio.h"
 
 State::State(){

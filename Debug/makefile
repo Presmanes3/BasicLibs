@@ -10,9 +10,9 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Src/StateMachine_lib/StateMachine/subdir.mk
--include Src/StateMachine_lib/SoftwareTimer/subdir.mk
--include Src/StateMachine_lib/ExecutionTimeCalculator/subdir.mk
--include Src/StateMachine_lib/Action/subdir.mk
+-include Src/SoftwareTimer_lib/ExecutionTimeCalculator/subdir.mk
+-include Src/SoftwareTimer_lib/subdir.mk
+-include Src/Action_lib/subdir.mk
 -include Src/subdir.mk
 -include Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/subdir.mk
 -include subdir.mk
