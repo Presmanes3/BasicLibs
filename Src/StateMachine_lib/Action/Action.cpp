@@ -1,5 +1,5 @@
+#include <SoftwareTimer_lib/SoftwareTimer.h>
 #include "StateMachine_lib/inc/Action/Action.h"
-#include "StateMachine_lib/inc/SoftwareTimer/SoftwareTimer.h"
 #include "StateMachine_lib/inc/ExecutionTimeCalculator/ExecutionTimeCalculator.h"
 
 void Action::set_timer(SoftwareTimer *timer) {

@@ -4,7 +4,7 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "StateMachine_lib/inc/Action/Action.h"
-#include "StateMachine_lib/inc/Action/ActionVector.h"
+#include "Vector_lib/ArrayPointerVector.h"
 #include "StateMachine_lib/inc/ExecutionTimeCalculator/ExecutionTimeCalculator.h"
 
 #ifdef STM32F103xB
@@ -41,7 +41,7 @@ class State {
 
 		void init();
 
-		ActionVector* get_action_vector(ActionType type);
+		ArrayPointerVector<Action>* get_action_vector(ActionType type);
 
 		void add_action(ActionType type, Action *action_);
 
@@ -55,9 +55,9 @@ class State {
 
 	public:
 
-		ActionVector update_actions = ActionVector();
-		ActionVector enter_actions	= ActionVector();
-		ActionVector exit_actions	= ActionVector();
+		ArrayPointerVector<Action> update_actions 	= ArrayPointerVector<Action>();
+		ArrayPointerVector<Action> enter_actions	= ArrayPointerVector<Action>();
+		ArrayPointerVector<Action> exit_actions		= ArrayPointerVector<Action>();
 
 		ExecutionTimeCalculator update_actions_time = ExecutionTimeCalculator();
 		ExecutionTimeCalculator enter_actions_time  = ExecutionTimeCalculator();
