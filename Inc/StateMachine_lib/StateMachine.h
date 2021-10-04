@@ -12,35 +12,35 @@ class TransitionCheck;
  * @brief Construct a new StateMachine object
  * 
  */
-class StateMachine
-{
+class StateMachine {
 
-public:
-    /**
-         * @brief Construct a new State Machine object
-         * 
-         */
-    StateMachine(){
+	public:
+		/**
+		 * @brief Construct a new State Machine object
+		 *
+		 */
+		StateMachine();
 
-    }
+		void add_state_pool(State **pool, uint32_t size);
 
-    void add_state_pool(State** pool, uint32_t size){
-    	this->statePool.set_pool(pool, size);
-    }
+		void add_check_transitions_pool(TransitionCheck **pool, uint32_t size);
 
-    void add_check_transitions_pool(TransitionCheck** pool, uint32_t size){
-    	this->transitionChecksPool.set_pool(pool, size);
-    }
+		void check_all_transitions();
 
+		void check_new_transition();
 
-private:
-    State *currentState;
-    ArrayPointerVector<State> statePool;
+		void change_current_state(State* new_state);
 
-    TransitionCheck* currentTransitionCheck;
-    ArrayPointerVector<TransitionCheck> transitionChecksPool;
+		void update();
 
-    ExecutionTimeCalculator update_time	= ExecutionTimeCalculator();
+	private:
+		State *currentState;
+		ArrayPointerVector<State> statePool;
+
+		TransitionCheck *currentTransitionCheck;
+		ArrayPointerVector<TransitionCheck> transitionChecksPool;
+
+		ExecutionTimeCalculator update_time = ExecutionTimeCalculator();
 };
 
 #endif
