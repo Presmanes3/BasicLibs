@@ -95,3 +95,10 @@ void State::next_update_action() {
 	}
 }
 
+uint32_t State::get_id(){
+	return this->id;
+}
+
+void State::set_id(uint32_t new_id){
+	this->id = new_id;
+}

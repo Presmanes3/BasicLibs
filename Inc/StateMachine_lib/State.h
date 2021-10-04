@@ -47,6 +47,10 @@ class State {
 
 		void set_execution_time_calculator_timer();
 
+		uint32_t get_id();
+
+		void set_id(uint32_t new_id);
+
 	private:
 
 		bool action_exist(Action *action);
@@ -64,6 +68,8 @@ class State {
 		ExecutionTimeCalculator exit_actions_time   = ExecutionTimeCalculator();
 
 		uint32_t current_update_action = 0;
+
+		uint32_t id;
 };
 
 #endif /*_STATE_H_*/
