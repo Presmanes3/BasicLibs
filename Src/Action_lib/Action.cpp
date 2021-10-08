@@ -6,7 +6,7 @@ void Action::set_timer(SoftwareTimer *timer) {
 	// Check if timer is null
 	if (timer != nullptr) {
 		this->timer = timer;
-		this->timer->activate();
+		this->timer->start();
 		this->_is_periodic = true;
 	}
 }
@@ -94,6 +94,17 @@ bool Action::check_execution_conditions() {
 	return can_be_executed;
 }
 
+bool Action::has_exceeded_repetitions(){
+	return this->_has_exceed_repetitions;
+}
+
+uint32_t Action::get_times_executed(){
+	return this->times_executed;
+}
+
+uint32_t Action::get_number_repetitions(){
+	return this->repetitions;
+}
 
 
 

@@ -46,6 +46,12 @@ class Action: public ActivationProperty {
 
 		bool is_bloqued();
 
+		bool has_exceeded_repetitions();
+
+		uint32_t get_times_executed();
+
+		uint32_t get_number_repetitions();
+
 	private:
 
 		void add_time_executed();
