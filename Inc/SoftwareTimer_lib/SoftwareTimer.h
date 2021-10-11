@@ -2,6 +2,7 @@
 #define _SOFTWARE_TIMER_H_
 
 #include "Properties_lib/ActivationProperty.h"
+#include "SoftwareTimer_config.h"
 #include "stdint.h"
 #include "math.h"
 
@@ -15,24 +16,28 @@
 #endif
 
 enum TIMER_BASE_TIME{
-	BASE_MILLIS = 0,
+	BASE_SECONDS 	= 0,
 
-	BASE_MICROS = 1
+	BASE_MILLIS 	= 1,
+
+	BASE_MICROS 	= 2
 };
 
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef HW_TIMER_INSTANCE;
 
 class SoftwareTimer : public ActivationProperty{
 	public:
 
 		SoftwareTimer( uint32_t period, TIMER_BASE_TIME base_time){
 
-			this->hw_timer = &htim2;
+			this->hw_timer = &HW_TIMER_INSTANCE;
+			this->compute_hardware_timer_values();
 
 			this->base_time = base_time;
 
 			this->set_period(period);
 
+			this->reset();
 		}
 
 		void set_period(uint32_t period);
@@ -40,34 +45,48 @@ class SoftwareTimer : public ActivationProperty{
 		void start();
 		void stop();
 		void reset();
+		void restart();
 
 		bool check();
 
-		float compute_percentage_done();
-		float compute_percentage_left();
-		uint32_t compute_time_done();
-		uint32_t compute_time_left();
+		void run_overflow();
 
 	private:
 		bool check_time_overflow_ocurred();
 
-		uint32_t get_current_time();
+		uint32_t get_current_tick();
 		uint32_t get_hardware_timer_autoreload();
+
+		float compute_percentage_done();
+		float compute_percentage_left();
+
+		float compute_time_done();
+		float compute_time_left();
+
+		void compute_hardware_timer_values();
+
+
 
 	private:
 		TIM_HandleTypeDef *hw_timer;
 
-		uint32_t ref_time;
+		float hw_timer_frequency	= 0;
+		float hw_timer_period		= 0;
 
-		uint32_t time_done;
-		uint32_t time_left;
+		uint32_t reference			= 0;
 
-		float percentage_done;
-		float percentage_left;
+		float time_from_overflow 	= 0;
 
-		float frequecy_Hz;
-		float period;
+		float time_done 			= 0;
+		float time_left				= 0;
 
+		float percentage_done		= 0;
+		float percentage_left		= 0;
+
+		float frequecy_Hz			= 0;
+		float period				= 0;
+
+		uint64_t overflows			= 0;
 		TIMER_BASE_TIME base_time;
 };
 

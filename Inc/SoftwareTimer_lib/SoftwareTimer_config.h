@@ -1,0 +1,17 @@
+#ifndef _SOFTWARE_TIMER_CONFIG_H_
+#define _SOFTWARE_TIMER_CONFIG_H_
+
+#define HW_TIMER_INSTANCE 	htim2
+#define HW_TIMER_FREQUENCY	1000000
+
+#define HW_TIMER_ARR		63999
+#define HW_TIMER_PSC		63
+
+
+
+
+
+
+
+
+#endif

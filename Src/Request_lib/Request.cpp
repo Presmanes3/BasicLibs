@@ -11,7 +11,7 @@ Request::Request(bool petition_f(), bool response_f(), uint32_t response_timeout
 	this->petition.set_callback(petition_f);
 	this->response.set_callback(response_f);
 
-	this->response_timer.set_period(response_timeout);
+	this->retry_timer.set_period(response_timeout);
 
 	this->petition.set_repetition(num_petitions);
 }
@@ -23,7 +23,7 @@ void Request::reset() {
 	this->petition.reset();
 	this->petition.activate();
 
-	this->response_timer.reset();
+	this->retry_timer.reset();
 
 	this->_has_failed = false;
 	this->_has_success = false;
@@ -42,7 +42,7 @@ void Request::stop() {
 	this->response.deactivate();
 	this->petition.deactivate();
 
-	this->response_timer.deactivate();
+	this->retry_timer.deactivate();
 }
 
 void Request::start() {
